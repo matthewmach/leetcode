@@ -14,3 +14,12 @@ class Solution:
             node = node.next
 
         return prevNode
+    
+    def optimal(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev, cur = None, head
+        while curr:
+            tmp = cur.next
+            cur.next = prev
+            prev = cur
+            cur = tmp
+        return prev

@@ -34,3 +34,21 @@ class Solution:
             prevNode = newNode
 
         return head
+    
+    def optimal(self, list1:ListNode, list2:ListNode) -> ListNode():
+        head = ListNode()
+        node = head
+
+        while list1 and list2:
+            if list1.val < list2.val:
+                node.next = list1
+                list1 = list1.next
+            else:
+                node.next = list2
+                list2 = list2.next
+            node = node.next
+
+        # Observation: if one list is empty, then just insert the entirely of the other remaining list        
+        node.next = list1 or list2
+
+        return head.next
