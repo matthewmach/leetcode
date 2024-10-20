@@ -25,13 +25,12 @@ class Solution:
     # Time Complexity: O(n)
     # Space Complexity: O(n)
     def optimal(self, nums: List[int]) -> int:
-        mp = defaultdict(int)
-        res = 0
-
-        for num in nums:
-            if not mp[num]:
-                mp[num] = mp[num - 1] + mp[num + 1] + 1
-                mp[num - mp[num - 1]] = mp[num]
-                mp[num + mp[num + 1]] = mp[num]
-                res = max(res, mp[num])
-        return res
+        dic = defaultdict(int)
+        out = 0
+        for n in nums:
+            if dic[n] == 0:
+                dic[n] = 1 + dic[n-1] + dic[n+1]
+                # Only have to update ends of the sequence (this will update nums that may not exist)
+                dic[n-dic[n-1]], dic[n+dic[n+1]] = dic[n], dic[n]
+                out = max(out, dic[n])
+        return out
