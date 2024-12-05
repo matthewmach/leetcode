@@ -36,3 +36,21 @@ class Solution:
             i += 1
 
         return int("".join(num))
+    
+    def greedy(self, num: int) -> int:
+        num_list = list(str(num))
+        max_digit_index = -1
+        swap_id_1, swap_id_2 = -1, -1
+
+        # iterate backwards to get the smallest biggest digit 
+        for i in range(len(num_list)-1, -1, -1):
+            if max_digit_index == -1 or num_list[i] > num_list[max_digit_index]:
+                max_digit_index = i
+            elif num_list[i] < num_list[max_digit_index]:
+                swap_id_1 = i
+                swap_id_2 = max_digit_index
+        
+        if swap_id_1 != -1 and swap_id_2 != -1:
+            num_list[swap_id_1], num_list[swap_id_2] = num_list[swap_id_2], num_list[swap_id_1]
+        
+        return int("".join(num_list))

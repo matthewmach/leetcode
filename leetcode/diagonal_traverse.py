@@ -1,7 +1,7 @@
 """
 Ideas: how do you determine what diagonal to go
     - end point is x = n-1, y = m-1
-    - check if max exceeded first, if it is, then you have to move an extra 2 steps down
+    - when reaching the endpoint of one axis, just increment the other by 1
 """
 class Solution:
     def findDiagonalOrder(self, mat: list[list[int]]) -> list[int]:
@@ -31,4 +31,33 @@ class Solution:
                 y = 0
                 
         out.append(mat[y][x])
+        return out
+
+    def clearer(self, mat: list[list[int]]) -> list[int]:
+        out = []
+        x, y = 0, 0
+        m, n = len(mat), len(mat[0])
+        direction = True
+        for i in range(m * n):
+            out.append(mat[y][x])
+            if direction:
+                if y == 0 and x != n-1:
+                    direction = False
+                    x += 1
+                elif x == n-1:
+                    direction = False
+                    y += 1
+                else:
+                    y -= 1
+                    x += 1
+            else:
+                if x == 0 and y != m-1:
+                    direction = True
+                    y += 1
+                elif y == m - 1:
+                    direction = True
+                    x += 1
+                else:
+                    x -= 1
+                    y += 1
         return out
